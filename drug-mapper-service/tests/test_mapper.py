@@ -1,23 +1,26 @@
 import pytest
 from app.llm.mapper import map_indications_to_icd10
 from app.models.indication import DrugIndication
+from tests.test_helper import VALID_SETID
 import json
+
+mapping_sample = {
+    "drug_name": "Dupixent",
+    "set_id": VALID_SETID,
+    "indications": [
+        "moderate-to-severe atopic dermatitis",
+        "chronic rhinosinusitis with nasal polyps",
+    ],
+    "icd10_mappings": [
+        {"code": "L20.84", "description": "Intrinsic (allergic) eczema"},
+        {"code": "J33.1", "description": "Nasal polyp"},
+    ],
+}
 
 
 @pytest.fixture
 def sample_response():
-    return {
-        "drug_name": "Dupixent",
-        "set_id": "1234-setid",
-        "indications": [
-            "moderate-to-severe atopic dermatitis",
-            "chronic rhinosinusitis with nasal polyps",
-        ],
-        "icd10_mappings": [
-            {"code": "L20.84", "description": "Intrinsic (allergic) eczema"},
-            {"code": "J33.1", "description": "Nasal polyp"},
-        ],
-    }
+    return mapping_sample
 
 
 class MockOpenAI:
@@ -31,7 +34,7 @@ class MockResponses:
 
     def __getattr__(self, name):
         if name == "output_text":
-            return json.dumps(sample_response())
+            return json.dumps(mapping_sample)
         raise AttributeError(
             f"'{self.__class__.__name__}' object has no attribute '{name}'"
         )
@@ -46,7 +49,7 @@ def mock_openai(monkeypatch):
 
 def test_map_indications_to_icd10(monkeypatch, sample_response, mock_openai):
     result = map_indications_to_icd10(
-        drug_name="Dupixent", set_id="1234-setid", text="Sample indication text"
+        drug_name="Dupixent", set_id=VALID_SETID, text="Sample indication text"
     )
 
     assert isinstance(result, DrugIndication)
@@ -81,7 +84,7 @@ class MockResponsesInvalid:
         {"drug_name": "Missing fields"},
         {
             "drug_name": "Dupixent",
-            "set_id": "1234",
+            "set_id": VALID_SETID,
             "indications": [],
         },  # Missing mappings
     ],
@@ -92,7 +95,7 @@ def test_map_indications_invalid_response(monkeypatch, invalid_response):
 
     with pytest.raises(ValueError):
         map_indications_to_icd10(
-            drug_name="Dupixent", set_id="1234-setid", text="Sample indication text"
+            drug_name="Dupixent", set_id=VALID_SETID, text="Sample indication text"
         )
 
 
@@ -112,7 +115,7 @@ def test_map_indications_openai_error(monkeypatch):
 
     with pytest.raises(Exception) as exc_info:
         map_indications_to_icd10(
-            drug_name="Dupixent", set_id="1234-setid", text="Sample indication text"
+            drug_name="Dupixent", set_id=VALID_SETID, text="Sample indication text"
         )
 
     assert "Error mapping indications" in str(exc_info.value)

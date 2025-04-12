@@ -1,8 +1,6 @@
 import pytest
 from app.dailymed.fetcher import fetch_indications_section
-
-VALID_SETID = "595f437d-2729-40bb-9c62-c8ece1f82780"  # Dupixent
-INVALID_SETID = "invalid-id"
+from tests.test_helper import VALID_SETID, INVALID_SETID
 
 
 def test_fetch_indications_success():
