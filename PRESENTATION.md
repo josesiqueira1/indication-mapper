@@ -26,6 +26,10 @@ To tackle the challenge of extracting and structuring drug indications, I opted 
 
 This setup ensures separation of concerns, clean layering, and scalability, while also allowing LLM logic to evolve independently from the API layer.
 
-## Mapper
+## Fetcher
 
 I tried to use the XML version of the label info, but as the request return a `.zip` I decided to move to scrapping from the HTML
+
+## Mapper
+
+At first I tried using a propmt to specify de data structure, but after some tries I decided to move to using the [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses), so I had to adjust the tests to further modify the implementation
