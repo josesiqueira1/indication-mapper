@@ -33,3 +33,13 @@ I tried to use the XML version of the label info, but as the request return a `.
 ## Mapper
 
 At first I tried using a propmt to specify de data structure, but after some tries I decided to move to using the [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs?api-mode=responses), so I had to adjust the tests to further modify the implementation
+
+## gRPC Server
+
+I've decided to use gRPC to establish a high-performance, language-agnostic communication channel between the Node.js backend and the Python service. This approach offers several advantages:
+
+- Type safety through `.proto` files, which define the request/response structure and prevent common serialization issues
+- Low latency communication, making it ideal for inter-service calls where speed is critical
+- Scalability and easy integration with additional services in the future, should the architecture grow
+
+The Python service exposes the mapping functionality via a simple gRPC interface. The Node.js backend uses the generated client stub to call this service whenever a mapping request is needed. This keeps the API layer focused on user interaction and access control, while delegating all LLM-heavy processing to the Python layer.

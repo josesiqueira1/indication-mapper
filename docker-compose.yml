@@ -1,8 +1,6 @@
-version: '3.8'
-
 services:
   mapper-server:
-    build: drug-mapper-service
+    build: indication-mapper
     ports:
       - "50051:50051"
     environment:
