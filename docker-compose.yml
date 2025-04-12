@@ -1,6 +1,23 @@
 services:
-  mapper-server:
-    build: indication-mapper
+  indication-api:
+    build:
+      context: ./indication-api
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/indication-mapper
+      - JWT_SECRET=secret-key
+      - JWT_EXPIRATION=1d
+      - GRPC_SERVER_URL=indication-mapper:50051
+    depends_on:
+      - mongodb
+      - indication-mapper
+
+  indication-mapper:
+    build:
+      context: ./indication-mapper
+      dockerfile: Dockerfile
     ports:
       - "50051:50051"
     environment:
@@ -10,12 +27,20 @@ services:
     depends_on:
       - redis
 
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/mongodb
+
   redis:
     image: redis:7-alpine
     ports:
       - "6379:6379"
     volumes:
-      - redis_data:/data
+      - redis_data:/data/redis
 
 volumes:
+  mongodb_data:
   redis_data:

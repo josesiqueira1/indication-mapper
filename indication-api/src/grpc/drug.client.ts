@@ -30,15 +30,21 @@ export class DrugClient implements OnModuleInit {
     );
 
     const drugProto = loadPackageDefinition(packageDefinition);
-    const DrugService = drugProto.drug.DrugService as any;
+    const DrugMapper = (drugProto as any).drug_mapper.DrugMapper;
 
-    const client = new DrugService(
+    const client = new DrugMapper(
       this.configService.get<string>('GRPC_SERVER_URL'),
       credentials.createInsecure(),
     );
 
     this.drugService = {
-      getIndications: promisify(client.getIndications.bind(client)),
+      getIndications: async ({ setid }) => {
+        const response = await promisify(client.mapIndications.bind(client))({ set_id: setid });
+
+        return {
+          indications: response.icd10_mappings || [],
+        };
+      },
     };
   }
 
@@ -51,4 +57,4 @@ export class DrugClient implements OnModuleInit {
       throw error;
     }
   }
-} 
+}

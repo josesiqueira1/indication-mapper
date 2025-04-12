@@ -10,7 +10,7 @@ describe('DrugsService', () => {
 
   const mockDrug: Drug = {
     setid: '595f437d-2729-40bb-9c62-c8ece1f82780',
-    description: 'Dupixent (dupilumab) injection',
+    name: 'Dupixent',
   };
 
   const mockDrugModel = {
