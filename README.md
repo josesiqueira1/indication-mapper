@@ -30,7 +30,8 @@ Create a `.env` file from `.env.example` or define the environment variable dire
 > Inside `docker-compose.yml`:
 
 ```yaml
-environment: OPENAI_API_KEY=your-openai-api-key-here
+environment:
+  OPENAI_API_KEY=your-openai-api-key-here
 ```
 
 2. **Run the project**
@@ -48,7 +49,7 @@ This will:
 
 ---
 
-## 📦 API Overview
+## API Overview
 
 After the app is running, you can access the Swagger docs at:
 
@@ -65,7 +66,7 @@ There you'll find routes for:
 
 ---
 
-## 🧩 Architecture
+## Architecture
 
 - **Python Service**: Handles DailyMed scraping and ICD-10 mapping using OpenAI
 - **NestJS API**: Handles user auth, drug/mapping management, and exposes REST endpoints
