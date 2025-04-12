@@ -20,12 +20,11 @@ def get_openai_client():
     return OpenAI()
 
 
-def map_indications_to_icd10(drug_name: str, set_id: str, text: str) -> DrugIndication:
+def map_indications_to_icd10(set_id: str, text: str) -> DrugIndication:
     """
     Maps drug indications to ICD-10 codes using OpenAI's LLM.
 
     Args:
-        drug_name: Name of the drug
         set_id: DailyMed set ID
         text: Text containing drug indications
 
@@ -45,7 +44,7 @@ def map_indications_to_icd10(drug_name: str, set_id: str, text: str) -> DrugIndi
                 {"role": "system", "content": PROMPT},
                 {
                     "role": "user",
-                    "content": f"Drug: {drug_name}\nSet ID: {set_id}\nText: {text}",
+                    "content": f"Set ID: {set_id}\nText: {text}",
                 },
             ],
             text={
@@ -55,7 +54,6 @@ def map_indications_to_icd10(drug_name: str, set_id: str, text: str) -> DrugIndi
                     "schema": {
                         "type": "object",
                         "properties": {
-                            "drug_name": {"type": "string"},
                             "set_id": {"type": "string"},
                             "indications": {
                                 "type": "array",
@@ -75,7 +73,6 @@ def map_indications_to_icd10(drug_name: str, set_id: str, text: str) -> DrugIndi
                             },
                         },
                         "required": [
-                            "drug_name",
                             "set_id",
                             "indications",
                             "icd10_mappings",

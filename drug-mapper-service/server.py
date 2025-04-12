@@ -1,4 +1,4 @@
-from app.grpc.service import serve
+from app.server import server
 
 if __name__ == "__main__":
-    serve()
+    server.serve()

@@ -8,7 +8,6 @@ class ICD10Mapping(BaseModel):
 
 
 class DrugIndication(BaseModel):
-    drug_name: str
     set_id: str
     indications: List[str]
     icd10_mappings: List[ICD10Mapping]

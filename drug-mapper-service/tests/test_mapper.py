@@ -5,7 +5,6 @@ from tests.test_helper import VALID_SETID
 import json
 
 mapping_sample = {
-    "drug_name": "Dupixent",
     "set_id": VALID_SETID,
     "indications": [
         "moderate-to-severe atopic dermatitis",
@@ -48,12 +47,9 @@ def mock_openai(monkeypatch):
 
 
 def test_map_indications_to_icd10(monkeypatch, sample_response, mock_openai):
-    result = map_indications_to_icd10(
-        drug_name="Dupixent", set_id=VALID_SETID, text="Sample indication text"
-    )
+    result = map_indications_to_icd10(set_id=VALID_SETID, text="Sample indication text")
 
     assert isinstance(result, DrugIndication)
-    assert result.drug_name == "Dupixent"
     assert len(result.indications) == 2
     assert result.icd10_mappings[0].code == "L20.84"
 
@@ -81,9 +77,8 @@ class MockResponsesInvalid:
 @pytest.mark.parametrize(
     "invalid_response",
     [
-        {"drug_name": "Missing fields"},
+        {"indications": "Missing fields"},
         {
-            "drug_name": "Dupixent",
             "set_id": VALID_SETID,
             "indications": [],
         },  # Missing mappings
@@ -94,9 +89,7 @@ def test_map_indications_invalid_response(monkeypatch, invalid_response):
     monkeypatch.setattr("app.llm.mapper.get_openai_client", lambda: mock)
 
     with pytest.raises(ValueError):
-        map_indications_to_icd10(
-            drug_name="Dupixent", set_id=VALID_SETID, text="Sample indication text"
-        )
+        map_indications_to_icd10(set_id=VALID_SETID, text="Sample indication text")
 
 
 class MockOpenAIError:
@@ -114,8 +107,6 @@ def test_map_indications_openai_error(monkeypatch):
     monkeypatch.setattr("app.llm.mapper.get_openai_client", lambda: mock)
 
     with pytest.raises(Exception) as exc_info:
-        map_indications_to_icd10(
-            drug_name="Dupixent", set_id=VALID_SETID, text="Sample indication text"
-        )
+        map_indications_to_icd10(set_id=VALID_SETID, text="Sample indication text")
 
     assert "Error mapping indications" in str(exc_info.value)

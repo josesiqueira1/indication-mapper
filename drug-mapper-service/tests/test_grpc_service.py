@@ -14,7 +14,6 @@ def service():
 @pytest.fixture
 def sample_mapping():
     return DrugIndication(
-        drug_name="Dupixent",
         set_id=VALID_SETID,
         indications=[
             "moderate-to-severe atopic dermatitis",
@@ -51,7 +50,6 @@ def test_map_indications_from_cache(monkeypatch, service, sample_mapping):
 
     response = service.MapIndications(request, context)
 
-    assert response.drug_name == "Dupixent"
     assert response.set_id == VALID_SETID
     assert len(response.indications) == 2
     assert len(response.icd10_mappings) == 2
@@ -75,7 +73,6 @@ def test_map_indications_from_llm(monkeypatch, service, sample_mapping):
 
     response = service.MapIndications(request, context)
 
-    assert response.drug_name == "Dupixent"
     assert response.set_id == VALID_SETID
     assert len(response.indications) == 2
     assert len(response.icd10_mappings) == 2
@@ -98,7 +95,6 @@ def test_map_indications_error(monkeypatch, service):
 
     response = service.MapIndications(request, context)
 
-    assert response.drug_name == ""
     assert response.set_id == ""
     assert len(response.indications) == 0
     assert len(response.icd10_mappings) == 0

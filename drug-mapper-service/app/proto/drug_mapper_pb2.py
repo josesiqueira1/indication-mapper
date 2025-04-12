@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x61pp/proto/drug_mapper.proto\x12\x0b\x64rug_mapper\"\'\n\x15MapIndicationsRequest\x12\x0e\n\x06set_id\x18\x01 \x01(\t\"1\n\x0cICD10Mapping\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\"\x83\x01\n\x16MapIndicationsResponse\x12\x11\n\tdrug_name\x18\x01 \x01(\t\x12\x0e\n\x06set_id\x18\x02 \x01(\t\x12\x13\n\x0bindications\x18\x03 \x03(\t\x12\x31\n\x0eicd10_mappings\x18\x04 \x03(\x0b\x32\x19.drug_mapper.ICD10Mapping2i\n\nDrugMapper\x12[\n\x0eMapIndications\x12\".drug_mapper.MapIndicationsRequest\x1a#.drug_mapper.MapIndicationsResponse\"\x00\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x1b\x61pp/proto/drug_mapper.proto\x12\x0b\x64rug_mapper\"\'\n\x15MapIndicationsRequest\x12\x0e\n\x06set_id\x18\x01 \x01(\t\"1\n\x0cICD10Mapping\x12\x0c\n\x04\x63ode\x18\x01 \x01(\t\x12\x13\n\x0b\x64\x65scription\x18\x02 \x01(\t\"p\n\x16MapIndicationsResponse\x12\x0e\n\x06set_id\x18\x01 \x01(\t\x12\x13\n\x0bindications\x18\x02 \x03(\t\x12\x31\n\x0eicd10_mappings\x18\x03 \x03(\x0b\x32\x19.drug_mapper.ICD10Mapping2i\n\nDrugMapper\x12[\n\x0eMapIndications\x12\".drug_mapper.MapIndicationsRequest\x1a#.drug_mapper.MapIndicationsResponse\"\x00\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -35,8 +35,8 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_MAPINDICATIONSREQUEST']._serialized_end=83
   _globals['_ICD10MAPPING']._serialized_start=85
   _globals['_ICD10MAPPING']._serialized_end=134
-  _globals['_MAPINDICATIONSRESPONSE']._serialized_start=137
-  _globals['_MAPINDICATIONSRESPONSE']._serialized_end=268
-  _globals['_DRUGMAPPER']._serialized_start=270
-  _globals['_DRUGMAPPER']._serialized_end=375
+  _globals['_MAPINDICATIONSRESPONSE']._serialized_start=136
+  _globals['_MAPINDICATIONSRESPONSE']._serialized_end=248
+  _globals['_DRUGMAPPER']._serialized_start=250
+  _globals['_DRUGMAPPER']._serialized_end=355
 # @@protoc_insertion_point(module_scope)
