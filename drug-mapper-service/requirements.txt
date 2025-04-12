@@ -4,3 +4,7 @@ requests==2.32.3
 beautifulsoup4==4.13.3
 openai==1.72.0
 dotenv==0.9.9
+grpcio==1.71.0
+grpcio-tools==1.71.0
+protobuf==5.29.4
+redis==5.2.1

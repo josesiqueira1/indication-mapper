@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package drug_mapper;
+
+service DrugMapper {
+  rpc MapIndications(MapIndicationsRequest) returns (MapIndicationsResponse) {}
+}
+
+message MapIndicationsRequest {
+  string set_id = 1;
+}
+
+message ICD10Mapping {
+  string code = 1;
+  string description = 2;
+}
+
+message MapIndicationsResponse {
+  string drug_name = 1;
+  string set_id = 2;
+  repeated string indications = 3;
+  repeated ICD10Mapping icd10_mappings = 4;
+}
