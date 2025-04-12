@@ -8,7 +8,7 @@ describe('DrugsService', () => {
   let service: DrugsService;
   let model: Model<Drug>;
 
-  const mockDrug: Drug = {
+  const mockDrug: Omit<Drug, '_id'> = {
     setid: '595f437d-2729-40bb-9c62-c8ece1f82780',
     name: 'Dupixent',
   };
@@ -55,4 +55,4 @@ describe('DrugsService', () => {
       expect(result).toBeNull();
     });
   });
-}); 
+});

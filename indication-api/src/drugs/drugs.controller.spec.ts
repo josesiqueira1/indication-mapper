@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DrugsController } from './drugs.controller';
 import { DrugsService } from './drugs.service';
 import { Drug } from './schemas/drug.schema';
-import { FindBySetidDto } from './dto/find-by-setid.dto';
 import { Types } from 'mongoose';
 
 describe('DrugsController', () => {
@@ -40,13 +39,11 @@ describe('DrugsController', () => {
 
   describe('findBySetid', () => {
     it('should return a drug by setid', async () => {
-      const findBySetidDto: FindBySetidDto = {
-        setid: '595f437d-2729-40bb-9c62-c8ece1f82780',
-      };
+      const setID = '595f437d-2729-40bb-9c62-c8ece1f82780';
 
-      const result = await controller.findBySetid(findBySetidDto);
-      expect(service.findBySetid).toHaveBeenCalledWith(findBySetidDto.setid);
+      const result = await controller.findBySetid(setID);
+      expect(service.findBySetid).toHaveBeenCalledWith(setID);
       expect(result).toEqual(mockDrug);
     });
   });
-}); 
+});

@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-  async create(createUserDto: CreateUserDto): Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<Omit<User, 'password'>> {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
     const createdUser = new this.userModel({
       ...createUserDto,
@@ -17,7 +17,8 @@ export class UsersService {
     });
 
     try {
-      return createdUser.save();
+      const { password, ...withoutPassword } = await createdUser.save();
+      return withoutPassword;
     } catch (err) {
       // Duplicate key
       if (err.code === 11000) {
