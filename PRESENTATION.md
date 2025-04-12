@@ -50,6 +50,6 @@ To avoid redundant API calls to OpenAI and speed up repeated queries, I've integ
 
 ## NestJS API
 
-I chose NestJS for the backend because it provides a well-structured, opinionated framework that scales well as the application grows. From the beginning, I aimed to clearly separate concerns (users, medications, mappings, etc.), and Nest’s modular architecture, built-in dependency injection, and native support for middlewares, interceptors, and guards made that straightforward.
+I chose NestJS for the backend because it provides a well-structured, opinionated framework that scales well as the application grows. From the beginning, I aimed to clearly separate concerns (users, drugs, mappings, etc.), and Nest’s modular architecture, built-in dependency injection, and native support for middlewares, interceptors, and guards made that straightforward.
 
 NestJS also has excellent built-in support for inter-service communication, including gRPC, which made integration with the Python mapping service clean and minimal in terms of boilerplate.
