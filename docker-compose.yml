@@ -22,6 +22,7 @@ services:
     ports:
       - "50051:50051"
     environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - REDIS_DB=0
