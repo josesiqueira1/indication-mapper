@@ -6,11 +6,11 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - MONGODB_URI: mongodb://mongodb:27017/indication-mapper
-      - MONGO_INITDB_DATABASE: indication-mapper
-      - JWT_SECRET: secret-key
-      - JWT_EXPIRATION: 1d
-      - GRPC_SERVER_URL: indication-mapper:50051
+      - MONGODB_URI=mongodb://mongodb:27017/indication-mapper
+      - MONGO_INITDB_DATABASE=indication-mapper
+      - JWT_SECRET=secret-key
+      - JWT_EXPIRATION=1d
+      - GRPC_SERVER_URL=indication-mapper:50051
     depends_on:
       - mongodb
       - indication-mapper
@@ -22,9 +22,9 @@ services:
     ports:
       - "50051:50051"
     environment:
-      - REDIS_HOST: redis
-      - REDIS_PORT: 6379
-      - REDIS_DB: 0
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - REDIS_DB=0
     depends_on:
       - redis
 
