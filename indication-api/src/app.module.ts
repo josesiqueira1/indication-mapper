@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { MedicationsModule } from './medications/medications.module';
 import { MappingsModule } from './mappings/mappings.module';
+import { DrugsModule } from './drugs/drugs.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { MappingsModule } from './mappings/mappings.module';
       }),
       inject: [ConfigService],
     }),
+    DrugsModule,
     UsersModule,
     AuthModule,
     MedicationsModule,
