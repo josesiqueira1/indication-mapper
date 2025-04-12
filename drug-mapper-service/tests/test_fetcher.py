@@ -1,6 +1,5 @@
 import pytest
 from app.dailymed.fetcher import fetch_indications_section
-from requests.exceptions import HTTPError
 
 VALID_SETID = "595f437d-2729-40bb-9c62-c8ece1f82780"  # Dupixent
 INVALID_SETID = "invalid-id"
@@ -34,5 +33,5 @@ def test_fetch_indications_section_missing(monkeypatch):
 
 
 def test_fetch_indications_invalid_setid():
-    with pytest.raises(HTTPError):
+    with pytest.raises(ValueError):
         fetch_indications_section(INVALID_SETID)

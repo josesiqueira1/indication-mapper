@@ -25,3 +25,7 @@ To tackle the challenge of extracting and structuring drug indications, I opted 
    - Uses MongoDB for storing users, drugs, and mappings
 
 This setup ensures separation of concerns, clean layering, and scalability, while also allowing LLM logic to evolve independently from the API layer.
+
+## Mapper
+
+I tried to use the XML version of the label info, but as the request return a `.zip` I decided to move to scrapping from the HTML
