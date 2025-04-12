@@ -53,7 +53,7 @@ This will:
 After the app is running, you can access the Swagger docs at:
 
 ```
-http://localhost:3000/api/docs
+http://localhost:3000/api
 ```
 
 There you'll find routes for:
