@@ -63,3 +63,35 @@ MongoDB is used to persist user data, drug information, and indication-to-ICD ma
 - Basic metadata (DailyMed ID and name)
 - Mapped ICD-10 codes
 - Timestamps for tracking and auditing changes
+
+--
+
+## User Workflow
+
+This is the typical flow a user follows when interacting with the system:
+
+1. **Account Creation**  
+   The user registers via the authentication endpoint and receives a JWT token to authenticate future requests.
+
+2. **Browse Available Drugs**  
+   After logging in, the user can query the list of drugs currently supported by the system. These drugs are pre-fetched or manually added based on available DailyMed entries.
+
+3. **Query ICD-10 Mappings**  
+   For any drug in the list, the user can fetch its mapped indications (as ICD-10 codes) using its **DailyMed ID**.
+
+4. **Manage Mappings**  
+   The user has full control over mappings associated with their account:
+
+   - **Create** new mappings (custom or AI-generated)
+   - **Update** existing mappings
+   - **Delete** mappings they no longer need
+
+5. **Trigger New Mapping via gRPC**  
+   A dedicated endpoint allows the user to trigger a fresh mapping process for a drug. This will:
+   - Call the Python service via gRPC
+   - The Python service scrapes the drug label from DailyMed
+   - Extracts indications and maps them to ICD-10 using the LLM
+   - Returns the mapped data back to the Node.js API
+   - The API stores the result in MongoDB and returns it in the response
+
+This workflow allows users to explore, customize, and generate structured drug indication data in a seamless and programmatic way.
